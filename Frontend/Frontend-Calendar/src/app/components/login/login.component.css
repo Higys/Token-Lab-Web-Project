@@ -50,6 +50,7 @@ input.ng-touched.ng-valid {
   text-decoration: underline;
   text-align: center;
   color: black;
+  cursor: pointer;
 }
 
 .field {
@@ -60,8 +61,6 @@ input.ng-touched.ng-valid {
 .btn-log-in{
   width: 50%;
   margin: 0 auto;
-  font-weight: 600;
-  color: #212529;
 }
 
 @media only screen and (max-width: 376px) {
@@ -74,5 +73,12 @@ input.ng-touched.ng-valid {
   .login-all {
     width: 25%;
   }
+}
+
+@media only screen and (min-width: 420px){
+  .login-square {
+    height: 45%;
+  }
+
 }
 

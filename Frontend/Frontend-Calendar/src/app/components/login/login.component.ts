@@ -1,3 +1,4 @@
+import { SignUpModalComponent } from './../modals/sign-up-modal/sign-up-modal.component';
 import { IncorrectPassModalComponent } from './../modals/incorrect-pass-modal/incorrect-pass-modal.component';
 import { tap } from 'rxjs/operators';
 import { LoginService } from './../../services/login/login.service';
@@ -24,6 +25,9 @@ export class LoginComponent  {
 
   user: User;
   status: number;
+  loginId = 1;
+  signUpId = 2;
+
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -35,7 +39,7 @@ export class LoginComponent  {
   ]);
 
 
-async Login() {
+async login() {
 
   const result = await this.loginService.Login(this.emailFormControl.value, this.passwordFormControl.value)
   .pipe(tap(data => {
@@ -45,15 +49,27 @@ async Login() {
   if (result === true) {
     return this.router.navigateByUrl('/home');
   } else {
-    this.openDialog();
+    this.openDialog(this.loginId);
   }
 
 }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(IncorrectPassModalComponent, {
-      width: '300px',
-    });
+  signUp(): void {
+    this.openDialog(this.signUpId);
+  }
+
+  openDialog(actionId: number) {
+    if (actionId === 1) {
+      const dialogRef = this.dialog.open(IncorrectPassModalComponent, {
+        width: '300px',
+      });
+    }
+    if (actionId === 2) {
+      const dialogRef = this.dialog.open(SignUpModalComponent, {
+        width: '300px',
+      });
+    }
+
   }
 
 }

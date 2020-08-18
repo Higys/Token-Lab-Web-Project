@@ -40,12 +40,13 @@ namespace Api_Calendar.Services
         
         }
 
-        public bool editEvent(int id, string description, string dateFinish, string dateStart)
+        public bool editEvent(int id, string name, string description, string dateFinish, string dateStart)
         {
             
             try
             {
                 Event eventEdit = dataContext.Events.First(q => q.id == id);
+                eventEdit.name = name;
                 eventEdit.description = description;
                 eventEdit.dateFinish = Convert.ToDateTime(dateFinish);
                 eventEdit.dateStart = Convert.ToDateTime(dateStart);
@@ -83,7 +84,7 @@ namespace Api_Calendar.Services
         List<Event> getEvents();
         Event getEventDetail(int id);
         bool addEvents(Event events);
-        bool editEvent(int id, string description, string dateFinish, string dateStart);
+        bool editEvent(int id, string name, string description, string dateFinish, string dateStart);
         bool delEvent(int id);
 
     }

@@ -13,6 +13,7 @@ namespace Api_Calendar.Models
         [System.Text.Json.Serialization.JsonIgnore]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
+        public string name { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         public string description { get; set; }
