@@ -36,7 +36,6 @@ namespace Api_Calendar.Controllers
             obj = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(_user.ToString(), obj);
 
             var result = loginService.Login(obj.email, obj.password).Result;
-            //posso retornar o calendario?!!
 
             if(result != null) {
                 return Ok();

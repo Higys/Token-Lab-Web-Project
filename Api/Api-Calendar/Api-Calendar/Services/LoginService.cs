@@ -22,8 +22,6 @@ namespace Api_Calendar.Services
             return user;
         }
 
-
-
     }
 
     public interface ILoginService
