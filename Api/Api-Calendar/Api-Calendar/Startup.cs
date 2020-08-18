@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api_Calendar.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +23,19 @@ namespace Api_Calendar
             Configuration = configuration;
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy(MyAllowSpecificOrigins, builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build()));
+
             services.AddControllers();
+           
+            services.AddScoped< ILoginService, LoginService>();
+            services.AddScoped< IEventService, EventService>();
 
             services.AddDbContext<DataContext>(option => {
                 option.UseMySql(Configuration.GetConnectionString("MainDataBase"), mySqlOptionsAction: sqlOptions =>
@@ -48,13 +57,21 @@ namespace Api_Calendar
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors("_myAllowSpecificOrigins");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello");
+                });
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }

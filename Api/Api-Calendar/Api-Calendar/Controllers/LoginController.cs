@@ -20,12 +20,31 @@ namespace Api_Calendar.Controllers
         }
 
         [Route("[action]")]
-        [HttpPost]
-        public async Task<Users> Login([FromBody] object _user)
+        [HttpGet]
+        public IActionResult Get()
         {
+            return Ok("teste");
+        }
+
+        
+        [HttpPost]
+        public IActionResult Login([FromBody] object _user)
+        {
+
             var obj = new { email = "", password = "" };
+            Console.WriteLine(obj);
             obj = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(_user.ToString(), obj);
-            return await loginService.Login(obj.email, obj.password);
+
+            var result = loginService.Login(obj.email, obj.password).Result;
+            //posso retornar o calendario?!!
+
+            if(result != null) {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
 

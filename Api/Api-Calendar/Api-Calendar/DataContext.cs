@@ -15,10 +15,13 @@ namespace Api_Calendar
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 
     public interface IDataContext
     {
         DbSet<Users> Users { get; set; }
+
+        DbSet<Event> Events { get; set; }
     }
 }

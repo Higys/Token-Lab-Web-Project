@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Api_Calendar.Models
 {
-    [Table("Users")]
-    public class Users
+    public class Event
     {
         [Key]
         [System.Text.Json.Serialization.JsonIgnore]
@@ -16,12 +15,14 @@ namespace Api_Calendar.Models
         public int id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string email { get; set; }
+        public string description { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [StringLength(128)]
-        public string password { get; set; }
+        public DateTime dateStart { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
+        public DateTime dateFinish { get; set; }
 
     }
+
 }

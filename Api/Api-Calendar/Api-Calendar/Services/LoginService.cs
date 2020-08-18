@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Api_Calendar.Services
@@ -11,27 +12,22 @@ namespace Api_Calendar.Services
     {
         protected readonly DataContext dataContext;
 
-        public LoginService(DataContext _dataContext)
-        {
-            dataContext = _dataContext;
-        }
+        public LoginService(DataContext _dataContext){ dataContext = _dataContext; }
 
         public async Task<Users> Login(string email, string password)
         {
-            var user = await dataContext.Users.FirstOrDefaultAsync(q => q.email == email && q.password == password.ToUpper());
-
-            if (user == null)
-            {
-                throw new Exception("Usuario e/ou senha incorreto(s)");
-            }
+            Console.Write(dataContext.Users);
+            var user = await dataContext.Users.FirstOrDefaultAsync(q => q.email == email && q.password == password);
 
             return user;
         }
+
+
 
     }
 
     public interface ILoginService
     {
-        Task<Users> Login(string email, string password);
+        public Task<Users> Login(string email, string password);
     }
 }
