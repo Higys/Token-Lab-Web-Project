@@ -20,7 +20,12 @@ export class LoginService {
     const url = API_URL + '/Login';
     const user: User = {email, password};
     return this.http.post(url, user, {headers: this.defaultHeader});
+  }
 
+  SignUp(email: string, password: string): Observable<any>{
+    const url = API_URL + '/Login/SignUp/';
+    const user: User = {email, password};
+    return this.http.post(url, user, {headers: this.defaultHeader});
   }
 
 }

@@ -1,3 +1,4 @@
+import { NewEventModalComponent } from './../../modals/new-event-modal/new-event-modal.component';
 import { EditEventComponent } from './../../modals/edit-event/edit-event.component';
 import { ConfirmDeletionModalComponent } from './../../modals/confirm-deletion-modal/confirm-deletion-modal.component';
 
@@ -17,9 +18,14 @@ import { formatDate } from '@angular/common';
 export class EventsPageComponent implements OnInit {
 
   public eventList: EventList;
+
   private dateStartEdit: string;
   private dateFinishEdit: string;
 
+  public name: string;
+  public description: string;
+  public dateStart: string;
+  public dateFinish: string;
 
   constructor(
     private eventService: EventService,
@@ -33,11 +39,23 @@ export class EventsPageComponent implements OnInit {
   public getEvents(): void {
     this.eventService.GetEvents().subscribe((response: any) => {
       this.eventList = response;
-      console.log(this.eventList);
+    });
+  }
+
+  // Open new event dialog
+  openNewDialog(): void {
+    const dialogRef = this.dialog.open(NewEventModalComponent, {
+      width: '700px',
+      data: {name: this.name, description: this.description, dateStart: this.dateStart, dateFinish: this.dateFinish }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
 
     });
   }
 
+  // Open delete event dialog
   openConfirmDialog(id: number, name: string) {
     const dialogRef = this.dialog.open(ConfirmDeletionModalComponent, {
       width: '550px',
@@ -46,13 +64,15 @@ export class EventsPageComponent implements OnInit {
     });
   }
 
+
+  // Open edit event dialog
   openEditDialog(event: EventModel) {
 
     this.formatDate(event);
 
 
-    console.log(event.dateFinish);
-    console.log(event.dateStart);
+    // console.log(this.dateFinishEdit);
+    // console.log(this.dateStartEdit);
 
     const dialogRef = this.dialog.open(EditEventComponent, {
       width: '700px',
@@ -70,12 +90,17 @@ export class EventsPageComponent implements OnInit {
   }
 
   formatDate(event: EventModel) {
-    const arrayDateTimeStart = event.dateFinish.split('T');
+
+    const arrayDateTimeStart = event.dateStart.split('T');
     const arrayDateTimeFinish = event.dateFinish.split('T');
+
     const dateArrayStart = arrayDateTimeStart[0].split('-');
+    // console.log(dateArrayStart);
     const dateArrayFinish = arrayDateTimeFinish[0].split('-');
-    this.dateStartEdit = dateArrayStart[0] + '-' + dateArrayStart[1] + '-' + dateArrayStart[2];
-    this.dateFinishEdit = dateArrayFinish[0] + '-' + dateArrayFinish[1] + '-' + dateArrayFinish[2];
+    // console.log(dateArrayFinish);
+
+    this.dateStartEdit =  dateArrayStart[1] + '-' + dateArrayStart[2] + '-' + dateArrayStart[0];
+    this.dateFinishEdit = dateArrayFinish[1] + '-' + dateArrayFinish[2] + '-' + dateArrayFinish[0];
   }
 
 }

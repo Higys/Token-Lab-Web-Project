@@ -19,12 +19,7 @@ namespace Api_Calendar.Controllers
             loginService = _loginService;
         }
 
-        [Route("[action]")]
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok("teste");
-        }
+
 
         
         [HttpPost]
@@ -32,7 +27,7 @@ namespace Api_Calendar.Controllers
         {
 
             var obj = new { email = "", password = "" };
-            Console.WriteLine(obj);
+           
             obj = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(_user.ToString(), obj);
 
             var result = loginService.Login(obj.email, obj.password).Result;
@@ -46,7 +41,26 @@ namespace Api_Calendar.Controllers
             }
         }
 
+        [Route("SignUp")]
+        [HttpPost]
+        public IActionResult SignUp([FromBody] object _user)
+        {
 
+            var obj = new { email = "", password = "" };
+            
+            obj = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(_user.ToString(), obj);
+
+            bool result = loginService.SignUp(obj.email, obj.password);
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
     }
 }

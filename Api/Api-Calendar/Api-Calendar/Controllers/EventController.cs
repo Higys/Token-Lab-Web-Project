@@ -28,7 +28,6 @@ namespace Api_Calendar.Controllers
             return eventService.getEventDetail(id);
         }
 
-        
         [HttpPost]
         public IActionResult Post([FromBody] Event events)
         {
@@ -50,7 +49,6 @@ namespace Api_Calendar.Controllers
         {
             var obj = new { name = "", description = "", dateStart = "", dateFinish = "" };
             obj = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(_events.ToString(), obj);
-
             try
             {
                 eventService.editEvent(id, obj.name, obj.description, obj.dateFinish, obj.dateStart);

@@ -5,13 +5,14 @@
     <div class="container d-flex events-header ">
 
       <div class="icon-header">
-        <mat-icon >event</mat-icon>
+        <mat-icon (click)="openNewDialog()">add_circle_outline</mat-icon>
       </div>
-      <div class="container d-flex title-header">
-        <span>Scheduled Events</span>
-        <span class="subtitle">- Here you can see all events scheduled.</span>
 
+      <div class="container d-flex title-header">
+        <span>Add New Event</span>
+        <span class="subtitle"></span>
       </div>
+
 
     </div>
 
@@ -42,10 +43,8 @@
               <td class="description-column" style="word-break: break-all;">{{eventItem.description}}</td>
               <td>
                 <div class="container d-flex actions">
-                  <div><mat-icon >info</mat-icon></div>
                   <div><mat-icon class="editIcon" (click)="openEditDialog(eventItem)">edit</mat-icon></div>
-                  <div><mat-icon class="deleteIcon" (click)="openConfirmDialog(eventItem.id, eventItem.name)"  >delete</mat-icon></div>
-
+                  <div><mat-icon class="deleteIcon" (click)="openConfirmDialog(eventItem.id, eventItem.name)">delete</mat-icon></div>
                 </div>
               </td>
             </tr>

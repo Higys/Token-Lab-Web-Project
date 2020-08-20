@@ -3,6 +3,8 @@ import { EventModel } from 'src/app/models/event/eventModelmodel';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventService } from './../../../services/event/event.service';
 import { Component, OnInit, Inject } from '@angular/core';
+import { formatDate } from '@angular/common';
+
 
 export interface DialogData {
   id: number;
@@ -23,6 +25,7 @@ export class EditEventComponent implements OnInit {
 
   datemask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   timemask = [/\d/, /\d/, ':', /\d/, /\d/];
+  public eventObj: any;
 
   constructor(
     public modal: MatDialogRef<EditEventComponent>,
@@ -37,19 +40,52 @@ export class EditEventComponent implements OnInit {
   }
 
   editEvent(): any {
-    const eventObj = {
+    this.eventObj = {
       id: this.data.id,
       name: this.data.name,
       description: this.data.description,
       dateStart: this.data.dateStart + 'T' + this.data.timeStart,
       dateFinish: this.data.dateFinish + 'T' + this.data.timeFinish,
-    }
-    console.log(eventObj);
-    const result = this.eventService.EditEvent(eventObj)
+    };
+
+    this.formatDate();
+
+    console.log(this.eventObj);
+
+    const result = this.eventService.EditEvent(this.eventObj)
     .pipe(tap(data => {}))
     .toPromise().then(() =>  true).catch(() => false);
 
     console.log(result);
+
+  }
+
+  formatDate() {
+
+    console.log(this.eventObj.dateStart);
+
+
+    let dateArray = this.eventObj.dateStart.replace(new RegExp('/', 'g'), '-');
+
+
+    dateArray = dateArray.split('T');
+
+
+    let dateArrayEdit = dateArray[0].split('-');
+
+
+    this.eventObj.dateStart = dateArrayEdit[2] + '-' + dateArrayEdit[0] + '-' + dateArrayEdit[1]  + 'T' + dateArray[1];
+
+
+    dateArray = this.eventObj.dateFinish.replace(new RegExp('/', 'g'), '-');
+
+    dateArray = dateArray.split('T');
+
+
+    dateArrayEdit = dateArray[0].split('-');
+
+    this.eventObj.dateFinish = dateArrayEdit[2] + '-' + dateArrayEdit[0] + '-' + dateArrayEdit[1] + 'T' + dateArray[1];
+
 
   }
 
