@@ -43,15 +43,6 @@ export class SignUpModalComponent implements OnInit {
 
     })).toPromise().then(() =>  true).catch(() => false);
 
-    //finalizar confirmacao de criacao
-
-    console.log(this.status);
-
-    if (result) {
-      console.log("deu");
-    } else {
-      console.log("nao deu");
-    }
   }
 
 

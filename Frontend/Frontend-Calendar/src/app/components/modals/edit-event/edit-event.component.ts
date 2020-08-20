@@ -3,7 +3,7 @@ import { EventModel } from 'src/app/models/event/eventModelmodel';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventService } from './../../../services/event/event.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 
 
 export interface DialogData {
@@ -31,6 +31,7 @@ export class EditEventComponent implements OnInit {
     public modal: MatDialogRef<EditEventComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private eventService: EventService,
+    private location: Location
   ) {}
 
   ngOnInit(): void { }
@@ -50,43 +51,21 @@ export class EditEventComponent implements OnInit {
 
     this.formatDate();
 
-    console.log(this.eventObj);
-
     const result = this.eventService.EditEvent(this.eventObj)
-    .pipe(tap(data => {}))
+    .pipe(tap())
     .toPromise().then(() =>  true).catch(() => false);
-
-    console.log(result);
 
   }
 
   formatDate() {
-
-    console.log(this.eventObj.dateStart);
-
-
     let dateArray = this.eventObj.dateStart.replace(new RegExp('/', 'g'), '-');
-
-
     dateArray = dateArray.split('T');
-
-
     let dateArrayEdit = dateArray[0].split('-');
-
-
     this.eventObj.dateStart = dateArrayEdit[2] + '-' + dateArrayEdit[0] + '-' + dateArrayEdit[1]  + 'T' + dateArray[1];
-
-
     dateArray = this.eventObj.dateFinish.replace(new RegExp('/', 'g'), '-');
-
     dateArray = dateArray.split('T');
-
-
     dateArrayEdit = dateArray[0].split('-');
-
     this.eventObj.dateFinish = dateArrayEdit[2] + '-' + dateArrayEdit[0] + '-' + dateArrayEdit[1] + 'T' + dateArray[1];
-
-
   }
 
 

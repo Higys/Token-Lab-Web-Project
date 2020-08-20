@@ -6,7 +6,6 @@ import { EventService } from './../../../services/event/event.service';
 import { Component, OnInit, Output } from '@angular/core';
 import { EventList, EventModel } from 'src/app/models/event/eventModelmodel';
 import { MatDialog } from '@angular/material/dialog';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-events-page',
@@ -29,11 +28,12 @@ export class EventsPageComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    public dialog: MatDialog
-    ) { }
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.getEvents();
+
   }
 
   public getEvents(): void {
@@ -70,10 +70,6 @@ export class EventsPageComponent implements OnInit {
 
     this.formatDate(event);
 
-
-    // console.log(this.dateFinishEdit);
-    // console.log(this.dateStartEdit);
-
     const dialogRef = this.dialog.open(EditEventComponent, {
       width: '700px',
       autoFocus: false,
@@ -95,9 +91,7 @@ export class EventsPageComponent implements OnInit {
     const arrayDateTimeFinish = event.dateFinish.split('T');
 
     const dateArrayStart = arrayDateTimeStart[0].split('-');
-    // console.log(dateArrayStart);
     const dateArrayFinish = arrayDateTimeFinish[0].split('-');
-    // console.log(dateArrayFinish);
 
     this.dateStartEdit =  dateArrayStart[1] + '-' + dateArrayStart[2] + '-' + dateArrayStart[0];
     this.dateFinishEdit = dateArrayFinish[1] + '-' + dateArrayFinish[2] + '-' + dateArrayFinish[0];

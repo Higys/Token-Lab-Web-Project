@@ -31,8 +31,9 @@ export class ConfirmDeletionModalComponent implements OnInit {
 
   deleteEvent(id: number): any {
     const result = this.eventService.DelEvent(id).pipe(tap()).toPromise().then(() =>  true).catch(() => false);
-    console.log(result);
+
     this.modal.close();
+
   }
 
 

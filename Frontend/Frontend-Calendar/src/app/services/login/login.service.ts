@@ -4,9 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from 'src/main';
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })

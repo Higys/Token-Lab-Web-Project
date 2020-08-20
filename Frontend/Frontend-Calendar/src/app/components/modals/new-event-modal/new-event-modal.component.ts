@@ -44,7 +44,8 @@ export class NewEventModalComponent implements OnInit {
     const result = this.eventService.AddEvent(this.data)
                        .pipe(tap())
                        .toPromise().then(() =>  true).catch(() => false);
-    console.log(result);
+
+
   }
 
   async formatDate() {
