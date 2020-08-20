@@ -9,6 +9,8 @@ export interface DialogData {
   description: string;
   dateStart: string;
   dateFinish: string;
+  timeStart: string;
+  timeFinish: string;
 }
 
 @Component({
@@ -19,6 +21,7 @@ export interface DialogData {
 export class NewEventModalComponent implements OnInit {
 
   datemask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+  timemask = [/\d/, /\d/, ':', /\d/, /\d/];
 
   constructor(
     public dialogRef: MatDialogRef<NewEventModalComponent>,
@@ -31,21 +34,24 @@ export class NewEventModalComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-
   }
 
-  addEvent(): void {
-    this.formatDate();
+  async addEvent() {
+
+    await this.formatDate();
+
+
     const result = this.eventService.AddEvent(this.data)
-                       .pipe(tap(data => {}))
+                       .pipe(tap())
                        .toPromise().then(() =>  true).catch(() => false);
+    console.log(result);
   }
 
-  formatDate(): void {
+  async formatDate() {
     let dateArray = this.data.dateFinish.split('/');
-    this.data.dateFinish = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
+    this.data.dateFinish = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0] + 'T' + this.data.timeFinish + ':00';
     dateArray = this.data.dateStart.split('/');
-    this.data.dateStart = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
+    this.data.dateStart = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0] + 'T' + this.data.timeStart + ':00';
   }
 
 }

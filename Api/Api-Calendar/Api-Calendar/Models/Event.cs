@@ -10,7 +10,7 @@ namespace Api_Calendar.Models
     public class Event
     {
         [Key]
-        [System.Text.Json.Serialization.JsonIgnore]
+        
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string name { get; set; }

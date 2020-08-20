@@ -13,13 +13,26 @@ export class EventService {
 
   private defaultHeader: HttpHeaders;
 
+  GetEvents(): Observable<any> {
+    const url = API_URL + '/Event/get';
+    return this.http.get(url, {headers: this.defaultHeader});
+  }
+
   AddEvent(data: EventModel): Observable<any> {
     const url = API_URL + '/Event/';
     return this.http.post(url, data, {headers: this.defaultHeader});
   }
 
-  GetEvents(): Observable<any> {
-    const url = API_URL + '/Event/get';
-    return this.http.get(url, {headers: this.defaultHeader});
+  EditEvent(event: EventModel) {
+    const url = API_URL + '/Event/' + event.id + '/';
+    return this.http.put(url, event, {headers: this.defaultHeader});
   }
+
+  DelEvent(id: number): Observable<any> {
+    const url = API_URL + '/Event/' + id + '/';
+    return this.http.delete(url, {headers: this.defaultHeader});
+  }
+
+
+
 }

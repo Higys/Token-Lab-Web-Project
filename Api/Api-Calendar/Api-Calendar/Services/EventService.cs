@@ -48,8 +48,8 @@ namespace Api_Calendar.Services
                 Event eventEdit = dataContext.Events.First(q => q.id == id);
                 eventEdit.name = name;
                 eventEdit.description = description;
-                eventEdit.dateFinish = Convert.ToDateTime(dateFinish);
-                eventEdit.dateStart = Convert.ToDateTime(dateStart);
+                eventEdit.dateFinish = DateTime.Parse(dateFinish);
+                eventEdit.dateStart = DateTime.Parse(dateStart);
                 dataContext.SaveChanges();
                 return true;
             }

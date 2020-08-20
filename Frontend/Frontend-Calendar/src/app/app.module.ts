@@ -2,7 +2,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +22,8 @@ import { SignUpModalComponent } from './components/modals/sign-up-modal/sign-up-
 import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
 import { NewEventModalComponent } from './components/modals/new-event-modal/new-event-modal.component';
 import { EventsPageComponent } from './components/home/events-page/events-page.component';
+import { ConfirmDeletionModalComponent } from './components/modals/confirm-deletion-modal/confirm-deletion-modal.component';
+import { EditEventComponent } from './components/modals/edit-event/edit-event.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { EventsPageComponent } from './components/home/events-page/events-page.c
     SignUpModalComponent,
     NavBarComponent,
     NewEventModalComponent,
-    EventsPageComponent
+    EventsPageComponent,
+    ConfirmDeletionModalComponent,
+    EditEventComponent
   ],
   imports: [
     BrowserModule,
@@ -50,17 +54,21 @@ import { EventsPageComponent } from './components/home/events-page/events-page.c
     MatButtonModule,
     MatButtonToggleModule,
     TextMaskModule,
-    MatIconModule
+    MatIconModule,
+    NgbModule
 
   ],
   entryComponents: [
     LoginComponent,
     HomeComponent,
     IncorrectPassModalComponent,
-    NewEventModalComponent
+    NewEventModalComponent,
+    ConfirmDeletionModalComponent
   ],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }
+
+      {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' }},
+
   ],
   bootstrap: [AppComponent]
 })

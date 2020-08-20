@@ -4,4 +4,10 @@ export class EventModel {
   description: string;
   dateStart: string;
   dateFinish: string;
+  timeStart?: string;
+  timeFinish?: string;
+}
+
+export class EventList {
+  eventList: EventModel[];
 }

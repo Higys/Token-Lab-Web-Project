@@ -1,0 +1,29 @@
+.dates {
+  justify-content: space-evenly;
+}
+
+.title-dialog {
+  margin-left: 15px;
+}
+
+@media only screen and (max-width: 550px){
+
+  .dates {
+    flex-direction: column !important;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .date-field {
+    width: 100%;
+  }
+}
+
+.btn_box {
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: 0px;
+   margin-left: 0px;
+  justify-content: center;
+}
